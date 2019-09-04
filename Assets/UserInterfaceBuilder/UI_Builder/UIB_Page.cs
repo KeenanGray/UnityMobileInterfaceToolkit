@@ -220,31 +220,7 @@ namespace UI_Builder
             //we swipe if 1 touch && no UAP OR 2 touch and UAP
             //AND swipe is full, direction is right, and page canvas is enabled
 
-            if (((!UAP_AccessibilityManager.IsActive() && touches == 1) || (UAP_AccessibilityManager.IsActive() && touches == 2))
-            && swipe.full && swipe.dir == Direction.RIGHT && gameObject.GetComponent<Canvas>().enabled)
-            {
-                var minDistance = Screen.width / 2.8;
 
-                if (Math.Abs(swipe.value) < minDistance)
-                {
-                    return;
-                }
-
-                if (PagesOnScreen.Count <= 0)
-                {
-                    // throw new Exception("NoPageException: There are no pages on the screen. This is a major problem");
-                }
-                //get all the buttons on the page, if it is backbutton invoke it.
-                foreach (UIB_Button ub in PagesOnScreen[0].GetComponentsInChildren<UIB_Button>())
-                {
-                    if (ub.isBackButton)
-                    {
-                        ub.GetComponent<Button>().onClick.Invoke();
-
-                        return;
-                    }
-                }
-            }
         }
 
         #endregion
@@ -362,14 +338,7 @@ namespace UI_Builder
 
             // ActivateUAP();
 
-            //Say the newly selected element when the page loads
-            if (UAP_AccessibilityManager.IsActive())
-            {
-                StartCoroutine("SayNewItem");
-            }
 
-            if (ActivateUAPOnEnter)
-                StartCoroutine(ResetUAP(true));
 
         }
 
@@ -377,62 +346,12 @@ namespace UI_Builder
         {
             if (gameObject.name == UIB_PageManager.CurrentPage.name)
             {
-                try
-                {
-                    UAP_AccessibilityManager.GetCurrentFocusObject().gameObject.GetComponent<UAP_BaseElement>().enabled = false;
-                }
-                catch (Exception e)
-                {
-                    if (e.GetType() == typeof(NullReferenceException))
-                    {
 
-                    }
-                }
             }
-            if (GetComponent<AccessibleUIGroupRoot>() != null)
-                GetComponent<AccessibleUIGroupRoot>().m_Priority = 0;
 
-            StartCoroutine(ResetUAP(false));
         }
 
         public static bool paused = false;
-        public IEnumerator ResetUAP(bool toggle)
-        {
-            foreach (Button b in GetComponentsInChildren<Button>())
-            {
-                b.enabled = toggle;
-            }
-            foreach (UAP_BaseElement uap in GetComponentsInChildren<UAP_BaseElement>())
-            {
-                uap.enabled = toggle;
-            }
-
-            foreach (AccessibleUIGroupRoot agui in GetComponentsInChildren<AccessibleUIGroupRoot>())
-            {
-                agui.enabled = false;
-                agui.enabled = true;
-            }
-
-            foreach (AccessibleUIGroupRoot ugui in GetComponentsInChildren<AccessibleUIGroupRoot>())
-            {
-                ugui.enabled = toggle;
-            }
-
-            if (toggle)
-            {
-                //select the first element
-                try
-                {
-                    UAP_AccessibilityManager.SelectElement(UAP_AccessibilityManager.TrueFirstElement());
-                }
-                catch (Exception e)
-                {
-                    Debug.LogWarning(e);
-                }
-            }
-
-            yield break;
-        }
 
         #region Helpers
         public void SetOnScreen(bool Enabled)
@@ -453,17 +372,5 @@ namespace UI_Builder
             }
         }
         #endregion
-
-        IEnumerator SayNewItem()
-        {
-            if (UAP_AccessibilityManager.IsSpeaking())
-                yield break;
-            UAP_AccessibilityManager.StopSpeaking();
-            yield return new WaitForSeconds(1.0f);
-            //  UAP_AccessibilityManager.Say(GameObject.Find("Active Item Frame").GetComponentsInParent<UAP_BaseElement>()[0].m_Text);
-
-            yield break;
-        }
-
     }
 }

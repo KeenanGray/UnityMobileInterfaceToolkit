@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
-using Amazon.S3.Model;
+//using Amazon.S3.Model;
 using UnityEngine;
 using UnityEngine.Networking;
 
@@ -83,52 +83,52 @@ namespace UI_Builder
             return fileData;
         }
 
-        public static void WriteFileFromResponse(GetObjectResponse response, string fileName)
-        {
-            //check if the directory exists
-            //split filepath into directory and filename
-            int cont = 0;
-            string name = "";
-            string directory = "";
-
-            foreach (string i in fileName.Split('/'))
-            {
-                cont++;
-                if (cont >= fileName.Split('/').Length)
+        /*        public static void WriteFileFromResponse(GetObjectResponse response, string fileName)
                 {
-                    name = fileName.Split('/')[cont - 1];
-                    break;
+                    //check if the directory exists
+                    //split filepath into directory and filename
+                    int cont = 0;
+                    string name = "";
+                    string directory = "";
+
+                    foreach (string i in fileName.Split('/'))
+                    {
+                        cont++;
+                        if (cont >= fileName.Split('/').Length)
+                        {
+                            name = fileName.Split('/')[cont - 1];
+                            break;
+                        }
+                        else
+                        {
+                            directory = directory + "/" + i;
+                        }
+                    }
+
+                    print("response:" + response + " fileName" + fileName);
+
+                    var newpath = UIB_PlatformManager.persistentDataPath + directory.Replace("/heidi-latsky-dance/", "");
+
+                    if (!Directory.Exists(newpath))
+                    {
+                        Directory.CreateDirectory(newpath);
+                    }
+                    else
+                    {
+                    }
+                    using (var fs = System.IO.File.Create(newpath + "/" + name))
+                    {
+                        byte[] buffer = new byte[81920];
+                        int count;
+                        while ((count = response.ResponseStream.Read(buffer, 0, buffer.Length)) != 0)
+                        {
+                            fs.Write(buffer, 0, count);
+                        }
+                        fs.Flush();
+                    }
+
                 }
-                else
-                {
-                    directory = directory + "/" + i;
-                }
-            }
-
-            print("response:" + response + " fileName" + fileName);
-
-            var newpath = UIB_PlatformManager.persistentDataPath + directory.Replace("/heidi-latsky-dance/", "");
-
-            if (!Directory.Exists(newpath))
-            {
-                Directory.CreateDirectory(newpath);
-            }
-            else
-            {
-            }
-            using (var fs = System.IO.File.Create(newpath + "/" + name))
-            {
-                byte[] buffer = new byte[81920];
-                int count;
-                while ((count = response.ResponseStream.Read(buffer, 0, buffer.Length)) != 0)
-                {
-                    fs.Write(buffer, 0, count);
-                }
-                fs.Flush();
-            }
-
-        }
-
+                */
         void WriteJsonFromWeb(string data, string fileName)
         {
             string destination = UIB_PlatformManager.persistentDataPath + "/" + fileName;
@@ -401,8 +401,8 @@ namespace UI_Builder
         {
             //if we are not in the Unity Editor, delete the streaming assets files to save space
             var path = Path.Combine(Application.streamingAssetsPath, "/", UIB_PlatformManager.platform, filename);
-            GameObject.Find("FileManager").GetComponent<UIB_FileManager>().StartCoroutine("WaitDeleteFile",path);
-           
+            GameObject.Find("FileManager").GetComponent<UIB_FileManager>().StartCoroutine("WaitDeleteFile", path);
+
 #if UNITY_ANDROID && !UNITY_EDITOR
 #endif
 

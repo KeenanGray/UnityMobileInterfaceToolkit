@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using TMPro;
-
+#if UAP_ACCESS
 [AddComponentMenu("Accessibility/UI/Special_AccessibleButton_Inspector")]
 public class Special_AccessibleButton : UAP_BaseElement
 {
@@ -330,3 +330,4 @@ public class Special_AccessibleButton : UAP_BaseElement
 }
 
 
+#endif

@@ -4,6 +4,7 @@ using System.Collections;
 using UnityEngine.UI;
 using TMPro;
 
+#if UAP_ACCESS
 [AddComponentMenu("Accessibility/UI/Special_AccessibleImageLabel_Inspector")]
 public class Special_AccessibleImageLabel : UAP_BaseElement
 {
@@ -151,3 +152,4 @@ public class Special_AccessibleImageLabel : UAP_BaseElement
 
 	//////////////////////////////////////////////////////////////////////////
 }
+#endif

@@ -7,6 +7,7 @@ using UnityEngine.EventSystems;
 
 using System;
 
+#if UAP_ACCESS
 [AddComponentMenu("Accessibility/UI/Special_Accessibility_TextEdit_Inspector")]
 public class Special_AccessibleTextEdit : UAP_BaseElement
 {
@@ -302,3 +303,4 @@ public class Special_AccessibleTextEdit : UAP_BaseElement
 
     //////////////////////////////////////////////////////////////////////////
 }
+#endif
