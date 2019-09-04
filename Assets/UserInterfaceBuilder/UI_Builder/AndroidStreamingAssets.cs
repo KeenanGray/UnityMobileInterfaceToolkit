@@ -1,10 +1,13 @@
 ﻿using UnityEngine;
 using System.IO;
 using System.Collections.Generic;
-using ICSharpCode.SharpZipLib.Zip;
-using ICSharpCode.SharpZipLib.Core;
 using System;
 using UI_Builder;
+
+#if CSHARPZIP_ACCESS
+using ICSharpCode.SharpZipLib.Zip;
+using ICSharpCode.SharpZipLib.Core;
+#endif
 
 public static class AndroidStreamingAssets
 {
@@ -83,7 +86,7 @@ public static class AndroidStreamingAssets
 
         m_path = result;
 #else
-        m_path = UIB_PlatformManager.persistentDataPath+UIB_PlatformManager.platform;
+        m_path = UIB_PlatformManager.persistentDataPath + UIB_PlatformManager.platform;
 #endif
     }
 }

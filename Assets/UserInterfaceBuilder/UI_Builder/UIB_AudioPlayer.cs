@@ -89,7 +89,7 @@ public class UIB_AudioPlayer : MonoBehaviour, UIB_IPage
                     }
                 });
 
-              //  b.onClick.Invoke();
+                //  b.onClick.Invoke();
             }
         }
 
@@ -98,7 +98,7 @@ public class UIB_AudioPlayer : MonoBehaviour, UIB_IPage
 
         GetComponent<AspectRatioFitter>().enabled = false;
         GetComponent<AspectRatioFitter>().enabled = true;
-        StartCoroutine(GetComponent<UIB_Page>().ResetUAP(true));
+        //StartCoroutine(GetComponent<UIB_Page>().ResetUAP(true));
     }
 
     // Update is called once per frame
@@ -252,17 +252,17 @@ public class UIB_AudioPlayer : MonoBehaviour, UIB_IPage
         AudioCaptions = new TextAsset(newText);
 
         //        Debug.Log("turning captions reader on");
-        CaptionsToggle.GetComponent<Special_AccessibleButton>().enabled = true;
+        //       CaptionsToggle.GetComponent<Special_AccessibleButton>().enabled = true;
         CaptionsToggle.GetComponent<Button>().enabled = true;
     }
 
     IEnumerator TurnOffCaptionsReader()
     {
         yield return new WaitForSeconds(0.5f);
-        CaptionsToggle.GetComponent<Special_AccessibleButton>().enabled = false;
+        //        CaptionsToggle.GetComponent<Special_AccessibleButton>().enabled = false;
         CaptionsToggle.GetComponent<Button>().enabled = false;
 
-        UAP_AccessibilityManager.RecalculateUIElementsOrder();
+        //        UAP_AccessibilityManager.RecalculateUIElementsOrder();
         //We have to reinitialize sort order
         yield break;
     }

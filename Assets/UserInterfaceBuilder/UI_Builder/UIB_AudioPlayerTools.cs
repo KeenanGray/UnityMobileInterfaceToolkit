@@ -111,9 +111,9 @@ public class UIB_AudioPlayerTools : MonoBehaviour
         {
             if (sb.gameObject.name.Equals("Time_Scroll"))
             {
-                if (source == null || source.clip==null)
+                if (source == null || source.clip == null)
                 {
-                   // Debug.Log("no source 2 " +gameObject.name);
+                    // Debug.Log("no source 2 " +gameObject.name);
                     return;
                 }
                 timeScroll = sb;
@@ -173,7 +173,7 @@ public class UIB_AudioPlayerTools : MonoBehaviour
         //Set up the input field
         AudioTimerInput = ParentOfAudioToolComponents.GetComponentInChildren<InputField>();
 
-      // AudioTimerInput.shouldHideMobileInput = true;
+        // AudioTimerInput.shouldHideMobileInput = true;
         AudioTimerInput.keyboardType = TouchScreenKeyboardType.NumberPad;
 
         time_label = GameObject.Find("DisplayText noedit").GetComponent<Text>();
@@ -207,7 +207,7 @@ public class UIB_AudioPlayerTools : MonoBehaviour
     private void OnInputFieldSubmitted(string arg0)
     {
         string str = time_label.text.Split(':')[0] + time_label.text.Split(':')[1];
-        
+
         //AudioTimerInput.text = "";
         if (source.clip.length > StringToSecondsCount(str, ref arg0))
         {
@@ -242,7 +242,7 @@ public class UIB_AudioPlayerTools : MonoBehaviour
     int timerIndex;
     private void OnInputFieldChanged(string arg0)
     {
-        UAP_AccessibilityManager.BlockInput(true);
+        //UAP_AccessibilityManager.BlockInput(true);
 
         var currentVal = arg0;
         if (currentVal.Length > oldValue.Length)
@@ -250,7 +250,7 @@ public class UIB_AudioPlayerTools : MonoBehaviour
             if (currentVal.Length <= 5)
             {
                 //say character added and full sentence
-                UAP_AccessibilityManager.Say(currentVal[currentVal.Length - 1].ToString() + " added ", true, true, UAP_AudioQueue.EInterrupt.All);
+                //UAP_AccessibilityManager.Say(currentVal[currentVal.Length - 1].ToString() + " added ", true, true, UAP_AudioQueue.EInterrupt.All);
             }
             else
             {
@@ -260,19 +260,21 @@ public class UIB_AudioPlayerTools : MonoBehaviour
         else
         {
             //say character deleted
+            /*
             if (UAP_AccessibilityManager.IsActive())
             {
                 UAP_AccessibilityManager.Say(oldValue[oldValue.Length - 1].ToString() + " deleted", true, true, UAP_AudioQueue.EInterrupt.All);
             }
+            */
         }
         oldValue = currentVal;
 
         var outstr = "";
         time_label.text = ConvertToClockTime(StringToSecondsCount(AudioTimerInput.text, ref outstr));
-        UAP_AccessibilityManager.Say(AudioTimerInput.GetComponent<Special_AccessibleTimeCode>().GetTargetGameObject().GetComponent<Text>().text);
+        //UAP_AccessibilityManager.Say(AudioTimerInput.GetComponent<Special_AccessibleTimeCode>().GetTargetGameObject().GetComponent<Text>().text);
 
-        if (!AudioTimerInput.isFocused)
-            UAP_AccessibilityManager.SelectElement(UAP_AccessibilityManager.GetCurrentFocusObject());
+        //if (!AudioTimerInput.isFocused)
+        //  UAP_AccessibilityManager.SelectElement(UAP_AccessibilityManager.GetCurrentFocusObject());
 
     }
 
@@ -281,7 +283,7 @@ public class UIB_AudioPlayerTools : MonoBehaviour
     {
         if (source == null || source.clip == null)
         {
-           // Debug.LogWarning("no source " + gameObject.name);
+            // Debug.LogWarning("no source " + gameObject.name);
             return;
         }
 
@@ -378,9 +380,9 @@ public class UIB_AudioPlayerTools : MonoBehaviour
         source.Play();
         playbutton.transform.GetChild(0).gameObject.SetActive(false); //turn off the play button
         playbutton.transform.GetChild(1).gameObject.SetActive(true); //turn on the pause button
-        var sab = playbutton.GetComponent<Special_AccessibleButton>();
-        sab.m_Text = "Pause";
-        sab.SelectItem(true);
+        //var sab = playbutton.GetComponent<Special_AccessibleButton>();
+        //sab.m_Text = "Pause";
+        //sab.SelectItem(true);
 
         //start the captions
         AudioPlayerData.GetComponent<UIB_AudioPlayer>().StartCoroutine("PlayCaptionsWithAudio");
@@ -391,9 +393,9 @@ public class UIB_AudioPlayerTools : MonoBehaviour
         source.Pause();
         playbutton.transform.GetChild(0).gameObject.SetActive(true); //turn off the play button
         playbutton.transform.GetChild(1).gameObject.SetActive(false); //turn on the pause button
-        var sab = playbutton.GetComponent<Special_AccessibleButton>();
-        sab.m_Text = "Play";
-        sab.SelectItem(true);
+        //var sab = playbutton.GetComponent<Special_AccessibleButton>();
+        //sab.m_Text = "Play";
+        //sab.SelectItem(true);
 
         //Stop the captions
         AudioPlayerData.GetComponent<UIB_AudioPlayer>().StopCoroutine("PlayCaptionsWithAudio");
@@ -536,7 +538,7 @@ public class UIB_AudioPlayerTools : MonoBehaviour
 
     public void OnSelect(BaseEventData eventData)
     {
-//        Debug.Log("HERE");
+        //        Debug.Log("HERE");
         fieldSelected();
     }
     private void fieldSelected()
@@ -583,7 +585,7 @@ public class UIB_AudioPlayerTools : MonoBehaviour
 
     private void fieldDeSelected(string arg0)
     {
-        UAP_AccessibilityManager.BlockInput(false);
+        //UAP_AccessibilityManager.BlockInput(false);
 
 
         if (TouchScreenKeyboard.isSupported)

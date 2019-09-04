@@ -29,8 +29,9 @@ namespace UI_Builder
             Scene,
             InAppUrl
         }
-
+#if INAPPBROWSER
         public static InAppBrowser.DisplayOptions options;
+#endif
 
         public bool isBackButton;
         public static Image backgroundImage;
@@ -59,12 +60,14 @@ namespace UI_Builder
 
 
             //in app url options
+#if INAPPBROWSER_ACCESS
             options = new InAppBrowser.DisplayOptions();
             options.displayURLAsPageTitle = false;
             options.browserBackgroundColor = ColorUtility.ToHtmlStringRGB(new Color(0, 0, 0, 255));
-        //    options.textColor = ColorUtility.ToHtmlStringRGB(new Color(200, 197, 43, 255));
+            //    options.textColor = ColorUtility.ToHtmlStringRGB(new Color(200, 197, 43, 255));
             options.hidesHistoryButtons = true;
-           // options.barBackgroundColor = ColorUtility.ToHtmlStringRGB(new Color(200, 197, 43, 255));
+            // options.barBackgroundColor = ColorUtility.ToHtmlStringRGB(new Color(200, 197, 43, 255));
+#endif
 
         }
 
@@ -119,7 +122,7 @@ namespace UI_Builder
                     {
                         shouldDeActivatePage = !newScreen.GetComponent<UIB_Page>().isTemplate;
                     }
-                    catch(Exception e)
+                    catch (Exception e)
                     {
                         Debug.LogError("Problem " + e);
                     }
@@ -147,15 +150,15 @@ namespace UI_Builder
                     shouldDeActivatePage = false;
                     if (s_link != null)
                     {
-                        options.pageTitle = Title;
-                        InAppBrowser.OpenURL(s_link, options);
+                        //options.pageTitle = Title;
+                        // InAppBrowser.OpenURL(s_link, options);
                     }
                     else
                         Debug.LogWarning("Button not assigned a url");
                     break;
                 case UIB_Button_Activates.Accessibletext:
                     shouldDeActivatePage = false;
-                    UAP_AccessibilityManager.SaySkippable(s_link);
+                    //                    UAP_AccessibilityManager.SaySkippable(s_link);
                     break;
                 case UIB_Button_Activates.Scene:
                     SceneManager.LoadScene(s_link);
@@ -170,12 +173,13 @@ namespace UI_Builder
                 UIB_PageManager.LastPage = GetComponentInParent<UIB_Page>().gameObject;
                 GetComponentInParent<UIB_Page>().DeActivate();
             }
+#if UAP_ACCESS
             if (resetUAP)
                 StartCoroutine(GetComponentInParent<UIB_Page>().ResetUAP(false));
-
+#endif
             if (VO_Select != null)
             {
-                UAP_AccessibilityManager.SelectElement(VO_Select);
+                //  UAP_AccessibilityManager.SelectElement(VO_Select);
             }
 
         }
@@ -183,7 +187,7 @@ namespace UI_Builder
         public void SetButtonText(string newtext)
         {
             GetComponentInChildren<TextMeshProUGUI>().text = newtext;
-            GetComponent<Special_AccessibleButton>().AutoFillTextLabel();
+            // GetComponent<Special_AccessibleButton>().AutoFillTextLabel();
         }
 
         private void OnEnable()

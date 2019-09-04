@@ -220,6 +220,7 @@ namespace UI_Builder
             //we swipe if 1 touch && no UAP OR 2 touch and UAP
             //AND swipe is full, direction is right, and page canvas is enabled
 
+#if UAP_ACCESS
             if (((!UAP_AccessibilityManager.IsActive() && touches == 1) || (UAP_AccessibilityManager.IsActive() && touches == 2))
             && swipe.full && swipe.dir == Direction.RIGHT && gameObject.GetComponent<Canvas>().enabled)
             {
@@ -245,6 +246,7 @@ namespace UI_Builder
                     }
                 }
             }
+#endif
         }
 
         #endregion
@@ -363,6 +365,7 @@ namespace UI_Builder
             // ActivateUAP();
 
             //Say the newly selected element when the page loads
+#if UAP_ACCESS
             if (UAP_AccessibilityManager.IsActive())
             {
                 StartCoroutine("SayNewItem");
@@ -370,7 +373,7 @@ namespace UI_Builder
 
             if (ActivateUAPOnEnter)
                 StartCoroutine(ResetUAP(true));
-
+#endif
         }
 
         public void PageDeActivatedHandler()
@@ -379,7 +382,9 @@ namespace UI_Builder
             {
                 try
                 {
+#if UAP_ACCESS
                     UAP_AccessibilityManager.GetCurrentFocusObject().gameObject.GetComponent<UAP_BaseElement>().enabled = false;
+#endif
                 }
                 catch (Exception e)
                 {
@@ -389,13 +394,17 @@ namespace UI_Builder
                     }
                 }
             }
+#if UAP_ACCESS
             if (GetComponent<AccessibleUIGroupRoot>() != null)
                 GetComponent<AccessibleUIGroupRoot>().m_Priority = 0;
 
             StartCoroutine(ResetUAP(false));
+#endif
+
         }
 
         public static bool paused = false;
+#if UAP_ACCESS
         public IEnumerator ResetUAP(bool toggle)
         {
             foreach (Button b in GetComponentsInChildren<Button>())
@@ -433,6 +442,7 @@ namespace UI_Builder
 
             yield break;
         }
+#endif
 
         #region Helpers
         public void SetOnScreen(bool Enabled)
@@ -454,6 +464,7 @@ namespace UI_Builder
         }
         #endregion
 
+#if UAP_ACCESS
         IEnumerator SayNewItem()
         {
             if (UAP_AccessibilityManager.IsSpeaking())
@@ -464,6 +475,7 @@ namespace UI_Builder
 
             yield break;
         }
+#endif
 
     }
 }

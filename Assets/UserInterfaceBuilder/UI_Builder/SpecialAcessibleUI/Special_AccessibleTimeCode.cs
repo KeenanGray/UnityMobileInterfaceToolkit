@@ -7,8 +7,9 @@ using UnityEngine.EventSystems;
 
 using System;
 
+#if UAP_ACCESS
 [AddComponentMenu("Accessibility/UI/Special_Accessibility_TextEdit_Inspector")]
-public class Special_AccessibleTextEdit : UAP_BaseElement
+public class Special_AccessibleTimeCode : UAP_BaseElement
 {
 #if ACCESS_NGUI
 	private EventDelegate m_Callback = null;
@@ -22,6 +23,7 @@ public class Special_AccessibleTextEdit : UAP_BaseElement
     private void Start()
     {
         UIB_InputManager.TouchDelegate += OnTouchWhileInputSelected;
+        m_Text = "time code " + GetCurrentValueAsText();
     }
 
     private void OnTouchWhileInputSelected(Touch[] touches, int taps)
@@ -55,7 +57,7 @@ public class Special_AccessibleTextEdit : UAP_BaseElement
         }
     }
 
-    Special_AccessibleTextEdit()
+    Special_AccessibleTimeCode()
     {
         m_Type = AccessibleUIGroupRoot.EUIElement.ETextEdit;
     }
@@ -111,17 +113,8 @@ public class Special_AccessibleTextEdit : UAP_BaseElement
 
     public override string GetCurrentValueAsText()
     {
-        InputField inputField = GetInputField();
-        if (inputField != null)
-            return inputField.text;
-
-#if ACCESS_NGUI
-		UIInput element = GetNGUIInputField();
-		if (element != null)
-			return element.value;
-#endif
-
-        return "";
+        m_Text = "time code ";
+        return GetTargetGameObject().GetComponent<Text>().text;
     }
 
     //////////////////////////////////////////////////////////////////////////
@@ -210,8 +203,8 @@ public class Special_AccessibleTextEdit : UAP_BaseElement
         // Remove the previous text from the string to get just the new bits
         if (newText.StartsWith(deltaText))
             newText = newText.Substring(deltaText.Length);
-     //  if (newText.Length > 0)
-     //       UAP_AccessibilityManager.Say(newText);
+        //  if (newText.Length > 0)
+        //       UAP_AccessibilityManager.Say(newText);
         deltaText = fullText;
     }
 
@@ -302,3 +295,4 @@ public class Special_AccessibleTextEdit : UAP_BaseElement
 
     //////////////////////////////////////////////////////////////////////////
 }
+#endif

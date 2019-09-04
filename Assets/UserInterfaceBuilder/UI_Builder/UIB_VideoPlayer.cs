@@ -152,7 +152,7 @@ namespace UI_Builder
             GetComponentInParent<UIB_Page>().StartCoroutine("MoveScreenOut", false);
             var listPage = GameObject.Find("#MeOnDisplay_Page");
             listPage.GetComponent<UIB_Page>().StartCoroutine("MoveScreenIn", false);
-            UAP_AccessibilityManager.SelectElement(listPage);
+            //UAP_AccessibilityManager.SelectElement(listPage);
 
 
             //reset the videoplayer;
