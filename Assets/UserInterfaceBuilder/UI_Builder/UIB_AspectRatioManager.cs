@@ -28,10 +28,12 @@ namespace UI_Builder
             else
                 return aspectRatioManager;
         }
+
         public void GetScreenResolution()
         {
             ScreenWidth = Screen.width;
             ScreenHeight = Screen.height;
         }
+
     }
 }

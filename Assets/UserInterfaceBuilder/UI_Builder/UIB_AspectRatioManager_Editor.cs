@@ -9,7 +9,6 @@ namespace UI_Builder
     [ExecuteInEditMode]
     public class UIB_AspectRatioManager_Editor : MonoBehaviour
     {
-#if UNITY_EDITOR
         public static float ScreenHeight;
         public static float ScreenWidth;
 
@@ -35,11 +34,9 @@ namespace UI_Builder
 
         private void Update()
         {
-            if (IsInEditor)
-            {
-                //            Debug.Log("Run");
-                GetScreenResolution();
-            }
+
+            GetScreenResolution();
+
         }
 
         public void GetScreenResolution()
@@ -68,7 +65,7 @@ namespace UI_Builder
                 // var tmp = arf.GetComponent<RectTransform>().position;
                 //if get component has a "page", move it into a nice position;
                 var page = arf.GetComponent<UIB_Page>();
-                if (page != null && arf.tag != "App_Biography" && arf.tag != "Pool" && arf.transform.parent.tag!="Pool")
+                if (page != null && arf.tag != "App_Biography" && arf.tag != "Pool" && arf.transform.parent.tag != "Pool")
                 {
                     rowcount++;
                     if (rowcount > rowTotal)
@@ -84,7 +81,7 @@ namespace UI_Builder
                 }
 
 
-               if (arf.transform.parent.tag == "Pool")
+                if (arf.transform.parent.tag == "Pool")
                 {
                     var commonName = arf.transform.parent.name.Split('(')[0];
                     if (!nameMap.ContainsKey(arf.transform.parent.name))
@@ -108,12 +105,11 @@ namespace UI_Builder
                     else
                     {
                         cnt++;
-                       
-                    } 
+
+                    }
                 }
 
             }
         }
-#endif
     }
 }
