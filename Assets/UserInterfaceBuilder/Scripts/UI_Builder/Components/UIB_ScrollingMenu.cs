@@ -20,9 +20,9 @@ namespace UI_Builder
         public Color highlight_ButtonColor;
         public Color disabled_ButtonColor;
 
-        public Color TextColor;
-        public Color TextHighlightColor;
-        public Color TextBackgroundColor;
+        public ColorReference TextColor;
+        public ColorReference TextHighlightColor;
+        public ColorReference TextBackgroundColor;
 
         public TMP_FontAsset font;
         public float fontSize;
@@ -116,14 +116,14 @@ namespace UI_Builder
                         {
                             if (text != null)
                             {
-                                text.color = TextColor;
+                                text.color = TextColor.Value;
                                 text.fontSize = fontSize;
                                 text.font = font;
 
                                 //only set image color and text size for buttons that have text
                                 SetAlignment(text);
                                 var I = b.GetComponent<Image>();
-                                I.color = TextBackgroundColor;
+                                I.color = TextBackgroundColor.Value;
 
                                 //  var thingy = (Handles.GetMainGameViewSize().y / Handles.GetMainGameViewSize().x) * GameObject.Find("MainCanvas").GetComponent<CanvasScaler>().referenceResolution.x;
                                 //  Debug.Log("Thingy " + thingy / 2);
@@ -137,7 +137,7 @@ namespace UI_Builder
                 {
                     if (!text2.gameObject.name.Contains("noedit"))
                     {
-                        text2.color = TextColor;
+                        text2.color = TextColor.Value;
                         text2.fontSize = fontSize;
                         text2.font = font;
                         SetAlignment(text2);

@@ -242,7 +242,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: -0.00024414062}
   m_Pivot: {x: 0, y: 0}
 --- !u!114 &8612541162992662598
 MonoBehaviour:
@@ -346,7 +346,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_AspectMode: 3
-  m_AspectRatio: 1.0555556
+  m_AspectRatio: 0.56269115
 --- !u!114 &8612541162992662607
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -365,8 +365,24 @@ MonoBehaviour:
   pressed_ButtonColor: {r: 1, g: 1, b: 1, a: 1}
   highlight_ButtonColor: {r: 1, g: 1, b: 1, a: 1}
   disabled_ButtonColor: {r: 1, g: 1, b: 1, a: 1}
-  TextColor: {r: 0, g: 0, b: 0, a: 1}
-  TextBackgroundColor: {r: 1, g: 1, b: 1, a: 1}
+  TextColor:
+    UseConstant: 0
+    ConstantValue:
+      serializedVersion: 2
+      rgba: 4294967295
+    Variable: {fileID: 11400000, guid: a9765d861b5f345dbbec382a536baef4, type: 2}
+  TextHighlightColor:
+    UseConstant: 0
+    ConstantValue:
+      serializedVersion: 2
+      rgba: 4294967295
+    Variable: {fileID: 11400000, guid: fb5bb080d4fab407b96ca36b309537a3, type: 2}
+  TextBackgroundColor:
+    UseConstant: 1
+    ConstantValue:
+      serializedVersion: 2
+      rgba: 4294967295
+    Variable: {fileID: 0}
   font: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   fontSize: 30
   alignment: 514

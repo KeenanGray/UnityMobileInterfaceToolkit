@@ -213,11 +213,11 @@ namespace UI_Builder
             if (setupComp == null)
                 return;
 
-            Color32 highlightColor = setupComp.TextHighlightColor;
+            Color32 highlightColor = setupComp.TextHighlightColor.Value;
             if (GetComponent<UnityEngine.UI.Button>().image.sprite != null)
                 originalColor = GetComponent<UnityEngine.UI.Button>().image.color;
             else
-                originalColor = setupComp.TextColor;
+                originalColor = setupComp.TextColor.Value;
 
             if (buttonText != null)
             {
@@ -243,7 +243,7 @@ namespace UI_Builder
                 GetComponent<UnityEngine.UI.Button>().image.color = new Color(255, 255, 255, 255);
 
             if (buttonText != null)
-                buttonText.GetComponent<TextMeshProUGUI>().color = setupComp.TextColor;
+                buttonText.GetComponent<TextMeshProUGUI>().color = setupComp.TextColor.Value;
 
             //SetDisplayedButton();
         }
