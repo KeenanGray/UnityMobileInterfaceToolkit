@@ -185,6 +185,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5be6233ad9a894330b8db12bb0ac8c4b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  resolution: {fileID: 11400000, guid: cc1df1fccc0c847cc9b5f72dd8c2eb8b, type: 2}
   isBackButton: 1
   Special_Background: {fileID: 0}
   newScreen: {fileID: 0}

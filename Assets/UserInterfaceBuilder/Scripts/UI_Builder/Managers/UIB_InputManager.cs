@@ -40,6 +40,7 @@ public class UIB_InputManager : MonoBehaviour
 {
     //whether or not to reset the input check, happens on mouse up (when swipe/touch ends)
     bool clearInputs;
+    public Resolution resolution;
 
     public delegate void OnSwipe(SwipeData swipe);
     public static event OnSwipe SwipeDelegate;
@@ -77,7 +78,7 @@ public class UIB_InputManager : MonoBehaviour
 
     private void DebugTouch(Touch[] touches, int tapCount)
     {
-        Debug.Log("Touched Screen at " + Input.mousePosition);
+        // Debug.Log("Touched Screen at " + Input.mousePosition);
     }
 
     private void LateUpdate()
@@ -190,7 +191,10 @@ public class UIB_InputManager : MonoBehaviour
             }
 
             //Determine the direction of the swipe
-            if (firstPoint.x < -UIB_AspectRatioManager.ScreenWidth || secondPoint.x < -UIB_AspectRatioManager.ScreenWidth)
+            if (resolution == null)
+                resolution = Resources.Load("ScriptableObjects/ResolutionAsset") as Resolution;
+
+            if (firstPoint.x < -resolution.Width || secondPoint.x < -resolution.Width)
             {
                 //no swipe
             }

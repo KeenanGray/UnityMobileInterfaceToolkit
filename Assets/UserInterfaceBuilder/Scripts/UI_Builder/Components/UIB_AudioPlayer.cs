@@ -10,6 +10,7 @@ using UnityEngine.UI;
 public class UIB_AudioPlayer : MonoBehaviour, UIB_IPage
 {
     GameObject cover;
+    public Resolution resolution;
     Image BgPhoto;
     GameObject CaptionsCanvas;
     TextMeshProUGUI Title;
@@ -167,7 +168,7 @@ public class UIB_AudioPlayer : MonoBehaviour, UIB_IPage
             BgPhoto.sprite = ImageToUse;
 
             //set recttransform aspect based on image and aspect ratio of screen
-            var ar = UIB_AspectRatioManager.ScreenWidth / UIB_AspectRatioManager.ScreenHeight;
+            var ar = resolution.Width / resolution.Height;
             var imgAR = 9f / 16f;
 
             if (!ar.Equals(imgAR))

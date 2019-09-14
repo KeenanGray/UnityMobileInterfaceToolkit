@@ -33,6 +33,8 @@ namespace UI_Builder
 
         //        public static InAppBrowser.DisplayOptions options;
 
+        public Resolution resolution;
+
         public bool isBackButton;
         public static Image backgroundImage;
         public static Sprite OG_Background;
@@ -69,12 +71,25 @@ namespace UI_Builder
             {
                 name += str;
             }
+            Init();
         }
 
 
 
         public void Init()
         {
+            //set scale of button based on resolution
+            var width = GetComponent<RectTransform>().rect.width;
+            var height = GetComponent<RectTransform>().rect.height;
+
+
+
+
+            if (resolution == null)
+                resolution = Resources.Load("ScriptableObjects/ResolutionAsset") as Resolution;
+
+
+
             if (gameObject.name == "App_SubMenuButton")
             {
                 return;

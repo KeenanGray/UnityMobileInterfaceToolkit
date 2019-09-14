@@ -8,12 +8,13 @@ using UnityEngine.UI;
 
 namespace UI_Builder
 {
+    [ExecuteInEditMode]
     public class UIB_ScrollingMenu : MonoBehaviour
     {
         public bool ShouldScroll;
         public bool AutoFormat;
 
-        //public Color ImageColor;
+        public Resolution resolution;
 
         public Color normal_ButtonColor;
         public Color pressed_ButtonColor;
@@ -43,46 +44,19 @@ namespace UI_Builder
 
         private void Update()
         {
+            Init();
         }
 
         public void Init()
         {
-            if (!AutoFormat)
-                return;
-
-            var rt = GameObject.FindWithTag("MainCanvas").GetComponent<RectTransform>();
             var myRt = GetComponent<RectTransform>();
 
-            var percentageScreenSize = .76f;
+            if (resolution == null)
+                resolution = Resources.Load("ScriptableObjects/ResolutionAsset") as Resolution;
 
-            //myRt.sizeDelta = new Vector2(rt.rect.width, (rt.sizeDelta.y * (rt.anchorMax.y - rt.anchorMin.y) * percentageScreenSize));
-            var logo = GameObject.Find("Logo").GetComponent<RectTransform>();
-
-            myRt.sizeDelta = new Vector2(rt.rect.width, (logo.anchoredPosition.y * .5f));
-            myRt.anchorMin = new Vector2(0, 0);
-            myRt.anchorMax = new Vector2(0, percentageScreenSize);
-            myRt.pivot = new Vector2(0, 0);
-            myRt.anchoredPosition = new Vector2(0, 0);
-
+            myRt.sizeDelta = new Vector2(resolution.Width, resolution.Height);
             var contentRect = GetComponent<ScrollRect>().content.GetComponent<RectTransform>();
-
-            //if height is greater
-            if (contentRect.sizeDelta.y >= myRt.rect.height)
-            {
-                contentRect.pivot = new Vector2(0, 1);
-                contentRect.anchorMin = new Vector2(0, 0);
-                contentRect.anchorMax = new Vector2(0, 0);
-                contentRect.anchoredPosition = new Vector2(contentRect.anchoredPosition.x, 0);
-            }
-            else
-            {
-                contentRect.pivot = new Vector2(0, 0);
-                contentRect.anchorMin = new Vector2(0, 0);
-                contentRect.anchorMax = new Vector2(0, 0);
-                contentRect.anchoredPosition = new Vector2(contentRect.anchoredPosition.x, 0);
-            }
-
-            myRt.anchoredPosition = new Vector3(contentRect.anchoredPosition.x, contentRect.anchoredPosition.y + 60);
+            contentRect.sizeDelta = new Vector2(resolution.Width, contentRect.rect.height);
         }
 
         private void OnEnable()

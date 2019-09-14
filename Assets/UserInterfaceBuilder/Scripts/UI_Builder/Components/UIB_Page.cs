@@ -28,10 +28,10 @@ namespace UI_Builder
     //App_Page
     //App_Page implements the standard behavior for ALL pages
     [ExecuteInEditMode]
-    [RequireComponent(typeof(AspectRatioFitter))]
     public class UIB_Page : MonoBehaviour, UIB_IPage
     {
         Canvas page_Canvas;
+        public Resolution resolution;
 
         public delegate void Activated();
         public event Activated OnActivated;
@@ -87,7 +87,10 @@ namespace UI_Builder
             }
 
             //Set size of transform
-            rt.sizeDelta = new Vector2(UIB_AspectRatioManager.ScreenWidth, UIB_AspectRatioManager.ScreenHeight);
+            if (resolution == null)
+                resolution = Resources.Load("ScriptableObjects/ResolutionAsset") as Resolution;
+
+            rt.sizeDelta = new Vector2(resolution.Width, resolution.Height);
 
             #region Views
             //TODO: Someday i'll re-make the view system
@@ -112,7 +115,7 @@ namespace UI_Builder
             {
                 name += str;
             }
-
+            Init();
         }
 
         public void ResetOnActivated()
@@ -129,7 +132,7 @@ namespace UI_Builder
 
         public static void UpdatePagesOnScreen()
         {
-            PagesOnScreen.Clear();
+            //            PagesOnScreen.Clear();
             if (pageParent == null)
             {
                 return;
@@ -266,7 +269,6 @@ namespace UI_Builder
                 yield return null;
             }
             PageOnScreen = true;
-            GetComponent<AspectRatioFitter>().enabled = true;
 
             OnActivated?.Invoke(); //should always be last
 
@@ -304,7 +306,7 @@ namespace UI_Builder
                     rt.anchoredPosition = Vector3.Lerp(rt.anchoredPosition, new Vector3(offscreenpos, 0, 0), lerp);
                     lerp += tmp;
 
-                    if (Mathf.Approximately(offscreenpos, rt.anchoredPosition.x + UIB_AspectRatioManager.ScreenWidth) ||
+                    if (Mathf.Approximately(offscreenpos, rt.anchoredPosition.x + resolution.Width) ||
                     rt.anchoredPosition.x + lerp >= GameObject.FindGameObjectWithTag("MainCanvas").GetComponent<CanvasScaler>().referenceResolution.x)
                     {
                         break;
@@ -314,7 +316,6 @@ namespace UI_Builder
             }
 
             PageOnScreen = false;
-            GetComponent<AspectRatioFitter>().enabled = false;
 
             //toggle the canvas at the end to prevent flicker
             ToggleCanvas(false);

@@ -6,17 +6,24 @@ using UnityEngine.UI;
 namespace UI_Builder
 {
     //This script should be added to the main canvas of the app
+    [ExecuteInEditMode]
     public class UIB_AspectRatioManager : MonoBehaviour
     {
-        public static float ScreenHeight;
-        public static float ScreenWidth;
+        public static Resolution resolution;
 
         static UIB_AspectRatioManager aspectRatioManager;
 
-        private void Awake()
+        private void Update()
         {
-            GetScreenResolution();
+            var canvasScaler = GetComponent<CanvasScaler>();
+            canvasScaler.referenceResolution = new Vector2(Screen.width, Screen.height);
 
+            if (resolution == null)
+            {
+                resolution = Resources.Load("ScriptableObjects/ResolutionAsset") as Resolution;
+            }
+            // if (System.Math.Abs(resolution.Width - Screen.width) > float.Epsilon && System.Math.Abs(resolution.Height - Screen.height) > float.Epsilon)
+            GetScreenResolution();
         }
         public static UIB_AspectRatioManager Instance()
         {
@@ -31,8 +38,8 @@ namespace UI_Builder
 
         public void GetScreenResolution()
         {
-            ScreenWidth = Screen.width;
-            ScreenHeight = Screen.height;
+            resolution.Width = Screen.width;
+            resolution.Height = Screen.height;
         }
 
     }

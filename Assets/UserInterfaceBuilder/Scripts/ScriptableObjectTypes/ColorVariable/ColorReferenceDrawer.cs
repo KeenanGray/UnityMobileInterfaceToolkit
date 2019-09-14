@@ -12,7 +12,7 @@ using UnityEngine;
 namespace RoboRyanTron.Unite2017.Variables
 {
     [CustomPropertyDrawer(typeof(ColorReference))]
-    public class FloatReferenceDrawer : PropertyDrawer
+    public class ColorReferenceDrawer : PropertyDrawer
     {
         /// <summary>
         /// Options to display in the popup to select constant or variable.
@@ -67,3 +67,4 @@ namespace RoboRyanTron.Unite2017.Variables
         }
     }
 }
+

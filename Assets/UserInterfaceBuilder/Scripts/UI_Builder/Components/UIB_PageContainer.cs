@@ -14,6 +14,8 @@ namespace UI_Builder
     public class UIB_PageContainer : MonoBehaviour
     {
         GameObject Cover;
+        public Resolution resolution;
+
         // Use this for initialization
         public void Init()
         {
@@ -27,7 +29,7 @@ namespace UI_Builder
             }
             else if (arf = GetComponent<AspectRatioFitter>())
             {
-                arf.aspectRatio = (UIB_AspectRatioManager.ScreenWidth) / (UIB_AspectRatioManager.ScreenHeight);
+                arf.aspectRatio = (resolution.Width) / (resolution.Height);
                 arf.aspectMode = AspectRatioFitter.AspectMode.FitInParent;
                 arf.enabled = false;
             }
